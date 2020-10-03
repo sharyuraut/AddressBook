@@ -45,6 +45,7 @@ namespace AddressBook
             }
         }
 
+        //Adding new contact details after taking user input
         public void addNewContact()
         {
             ContactDetails contact = new ContactDetails();
@@ -66,7 +67,7 @@ namespace AddressBook
             contact.email = Console.ReadLine();
 
             contacts.Add(contact);
-            Console.WriteLine("New Contact added successfully");
+            Console.WriteLine("New Contact Details added successfully");
         }
 
         
