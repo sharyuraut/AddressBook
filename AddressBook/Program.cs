@@ -14,9 +14,9 @@ namespace AddressBook
             ContactDetails contact = new ContactDetails();
 
             int option = 0;
-            while (option != 4)
+            while (option != 5)
             {
-                Console.WriteLine("\n1. Display All Contacts\n2. Add New Contact\n3. Edit a Contact\n4. Exit");
+                Console.WriteLine("\n1. Display all contacts\n2. Add new contact\n3. Edit a contact\n4. Delete a contact \n 5. Exit");
                 option = int.Parse(Console.ReadLine());
                 switch (option)
                 {
@@ -35,6 +35,10 @@ namespace AddressBook
                         break;
 
                     case 4:
+                        contact.deleteContact();
+                        break;
+
+                    case 5:
                         break;
 
                     default:
