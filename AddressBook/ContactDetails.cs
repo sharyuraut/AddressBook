@@ -155,5 +155,20 @@ namespace AddressBook
             }
         }
 
+        public void deleteContact()
+        {
+            Console.WriteLine("Enter the first name of the person to delete the contact: ");
+            string deleteName = Console.ReadLine();
+            List<ContactDetails> contacts1 = new List<ContactDetails>();
+            foreach (ContactDetails i in contacts)
+            {
+                if (i.firstName.Equals(deleteName))
+                {
+                    contacts1.Add(i);
+                }
+            }
+            contacts.RemoveAll(i => contacts1.Contains(i));
+            Console.WriteLine("Successfully Deleted Contact!");
+        }
     }
 }
