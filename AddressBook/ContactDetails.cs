@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AddressBook
 {
@@ -49,22 +50,76 @@ namespace AddressBook
         public void addNewContact()
         {
             ContactDetails contact = new ContactDetails();
+            string namePattern = "^[a-zA-Z ]+$";
+            string addressPattern = "^[a-zA-Z0-9 ]+$";
+            string zipPattern = "[0-9]{6}";
+            string phonePattern = "[0-9]{10}";
+            string mailPattern = @"[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
+
+
             Console.Write("Enter First Name: ");
-            contact.firstName = Console.ReadLine();
+            string firstName = Console.ReadLine();
+            if (!Regex.IsMatch(firstName, namePattern))
+                throw new Exception("Name should be alphabetical!");
+            else
+                contact.firstName = firstName;
+
+
             Console.Write("Enter Last Name: ");
-            contact.lastName = Console.ReadLine();
+            string lastName = Console.ReadLine();
+            if (!Regex.IsMatch(lastName, namePattern))
+                throw new Exception("Name should be alphabetical!");
+            else
+                contact.lastName = lastName;
+
+
             Console.Write("Enter Address:");
-            contact.address = Console.ReadLine();
+            string address = Console.ReadLine();
+            if (!Regex.IsMatch(address, addressPattern))
+                throw new Exception("Address should be in proper format!");
+            else
+                contact.address = address;
+
+
             Console.Write("Enter City: ");
-            contact.city = Console.ReadLine();
+            string city = Console.ReadLine();
+            if (!Regex.IsMatch(city, namePattern))
+                throw new Exception("City name should be in proper format!");
+            else
+                contact.city = city;
+
+
             Console.Write("Enter State: ");
-            contact.state = Console.ReadLine();
+            string state = Console.ReadLine();
+            if (!Regex.IsMatch(state, namePattern))
+                throw new Exception("State should be in proper format!");
+            else
+                contact.state = state;
+
+
             Console.Write("Enter ZIP Code: ");
-            contact.zipCode = int.Parse(Console.ReadLine());
+            string zip = Console.ReadLine();
+            if (!Regex.IsMatch(zip, zipPattern))
+                throw new Exception("ZIP Code should be a 6 digit number");
+            else
+                contact.zipCode = int.Parse(zip);
+
+
             Console.Write("Enter Phone Number: ");
-            contact.phoneNumber = long.Parse(Console.ReadLine());
+            string phNumber = Console.ReadLine();
+            if (!Regex.IsMatch(phNumber, phonePattern))
+                throw new Exception("Phone number must be a 10 digit number!");
+            else
+                contact.phoneNumber = long.Parse(phNumber);
+
+
             Console.Write("Enter Email Id: ");
-            contact.email = Console.ReadLine();
+            string mailId = Console.ReadLine();
+            if (!Regex.IsMatch(mailId, mailPattern))
+                throw new Exception("Check Mail address");
+            else
+                contact.email = mailId;
+
 
             contacts.Add(contact);
             Console.WriteLine("New Contact Details added successfully");

@@ -16,7 +16,7 @@ namespace AddressBook
             int option = 0;
             while (option != 5)
             {
-                Console.WriteLine("\n1. Display all contacts\n2. Add new contact\n3. Edit a contact\n4. Delete a contact \n 5. Exit");
+                Console.WriteLine("\n1. Display all contacts\n2. Add new contact\n3. Edit a contact\n4. Delete a contact\n5. Exit");
                 option = int.Parse(Console.ReadLine());
                 switch (option)
                 {
