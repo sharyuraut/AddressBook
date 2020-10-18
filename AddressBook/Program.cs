@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 namespace AddressBook
 {
@@ -13,40 +14,74 @@ namespace AddressBook
             List<ContactDetails> contactDetails = new List<ContactDetails>();
             ContactDetails contact = new ContactDetails();
 
-            int option = 0;
-            while (option != 5)
+            string name = "";
+            int choice = 0;
+            //string[] details;
+
+
+            MultipleAddressBooks multipleAddressBooks = new MultipleAddressBooks();
+            Address_Book addressBook = null;
+
+            Console.WriteLine("Welcome to Address Book Program");
+            while (true)
             {
-                Console.WriteLine("\n1. Display all contacts\n2. Add new contact\n3. Edit a contact\n4. Delete a contact\n5. Exit");
-                option = int.Parse(Console.ReadLine());
-                switch (option)
+                //bool flag = true;
+                Console.WriteLine("1.Add Address Book\n2.Open Address Book");
+                choice = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Enter name of Address Book");
+                name = Console.ReadLine();
+                if (choice == 1)
                 {
-                    case 1:
-                        Console.WriteLine("Displaying Contacts");
-                        contact.display();
-                        break;
+                    multipleAddressBooks.AddAddressBook(name);
+                    addressBook = multipleAddressBooks.GetAddressBook(name);
+                }
+                else if (choice == 2)
+                {
+                    addressBook = multipleAddressBooks.GetAddressBook(name);
+                    if (addressBook == null)
+                    {
+                        Console.WriteLine("No such Address Book");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice");
+                }
 
-                    case 2:
-                        Console.WriteLine("Add New Contact.");
-                        contact.addNewContact();
-                        break;
+                int option = 0;
+                while (option != 5)
+                {
+                    Console.WriteLine("\n1. Display all contacts\n2. Add new contact\n3. Edit a contact\n4. Delete a contact\n5. Exit");
+                    option = int.Parse(Console.ReadLine());
+                    switch (option)
+                    {
+                        case 1:
+                            Console.WriteLine("Displaying Contacts");
+                            contact.display();
+                            break;
 
-                    case 3:
-                        contact.editContact();
-                        break;
+                        case 2:
+                            Console.WriteLine("Add New Contact.");
+                            contact.addNewContact();
+                            break;
 
-                    case 4:
-                        contact.deleteContact();
-                        break;
+                        case 3:
+                            contact.editContact();
+                            break;
 
-                    case 5:
-                        break;
+                        case 4:
+                            contact.deleteContact();
+                            break;
 
-                    default:
-                        Console.WriteLine("Enter valid option.");
-                        break;
+                        case 5:
+                            break;
+
+                        default:
+                            Console.WriteLine("Enter valid option.");
+                            break;
+                    }
                 }
             }
-
         }
     }
 }

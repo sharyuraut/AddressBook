@@ -51,7 +51,7 @@ namespace AddressBook
         {
             ContactDetails contact = new ContactDetails();
             string namePattern = "^[a-zA-Z ]+$";
-            string addressPattern = "^[a-zA-Z0-9 ]+$";
+            string addressPattern = "^[a-z A-Z 0-9]+$";
             string zipPattern = "[0-9]{6}";
             string phonePattern = "[0-9]{10}";
             string mailPattern = @"[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
