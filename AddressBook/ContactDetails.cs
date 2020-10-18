@@ -51,11 +51,11 @@ namespace AddressBook
         {
             ContactDetails contact = new ContactDetails();
             string namePattern = "^[a-zA-Z ]+$";
-            string addressPattern = "^[a-z A-Z 0-9]+$";
+            string addressPattern = "^[a-zA-Z0-9 ]+$";
             string zipPattern = "[0-9]{6}";
             string phonePattern = "[0-9]{10}";
             string mailPattern = @"[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
-
+            bool check = false;
 
             Console.Write("Enter First Name: ");
             string firstName = Console.ReadLine();
@@ -72,68 +72,80 @@ namespace AddressBook
             else
                 contact.lastName = lastName;
 
+            foreach (ContactDetails i in contacts)
+            {
+                if (i.firstName.ToUpper().Equals(firstName.ToUpper()) && i.lastName.ToUpper().Equals(lastName.ToUpper()))
+                {
+                    Console.WriteLine("Name exists in the system! Input another name!");
+                    check = true;
+                    break;
+                }
+            }
 
-            Console.Write("Enter Address:");
-            string address = Console.ReadLine();
-            if (!Regex.IsMatch(address, addressPattern))
-                throw new Exception("Address should be in proper format!");
-            else
-                contact.address = address;
-
-
-            Console.Write("Enter City: ");
-            string city = Console.ReadLine();
-            if (!Regex.IsMatch(city, namePattern))
-                throw new Exception("City name should be in proper format!");
-            else
-                contact.city = city;
-
-
-            Console.Write("Enter State: ");
-            string state = Console.ReadLine();
-            if (!Regex.IsMatch(state, namePattern))
-                throw new Exception("State should be in proper format!");
-            else
-                contact.state = state;
+            if (check == false)
+            {
+                Console.Write("Enter Address:");
+                string address = Console.ReadLine();
+                if (!Regex.IsMatch(address, addressPattern))
+                    throw new Exception("Address should be in proper format!");
+                else
+                    contact.address = address;
 
 
-            Console.Write("Enter ZIP Code: ");
-            string zip = Console.ReadLine();
-            if (!Regex.IsMatch(zip, zipPattern))
-                throw new Exception("ZIP Code should be a 6 digit number");
-            else
-                contact.zipCode = int.Parse(zip);
+                Console.Write("Enter City: ");
+                string city = Console.ReadLine();
+                if (!Regex.IsMatch(city, namePattern))
+                    throw new Exception("City name should be in proper format!");
+                else
+                    contact.city = city;
 
 
-            Console.Write("Enter Phone Number: ");
-            string phNumber = Console.ReadLine();
-            if (!Regex.IsMatch(phNumber, phonePattern))
-                throw new Exception("Phone number must be a 10 digit number!");
-            else
-                contact.phoneNumber = long.Parse(phNumber);
+                Console.Write("Enter State: ");
+                string state = Console.ReadLine();
+                if (!Regex.IsMatch(state, namePattern))
+                    throw new Exception("State should be in proper format!");
+                else
+                    contact.state = state;
 
 
-            Console.Write("Enter Email Id: ");
-            string mailId = Console.ReadLine();
-            if (!Regex.IsMatch(mailId, mailPattern))
-                throw new Exception("Check Mail address");
-            else
-                contact.email = mailId;
+                Console.Write("Enter ZIP Code: ");
+                string zip = Console.ReadLine();
+                if (!Regex.IsMatch(zip, zipPattern))
+                    throw new Exception("ZIP Code should be a 6 digit number");
+                else
+                    contact.zipCode = int.Parse(zip);
 
 
-            contacts.Add(contact);
-            Console.WriteLine("New Contact Details added successfully");
+                Console.Write("Enter Phone Number: ");
+                string phNumber = Console.ReadLine();
+                if (!Regex.IsMatch(phNumber, phonePattern))
+                    throw new Exception("Phone number must be a 10 digit number!");
+                else
+                    contact.phoneNumber = long.Parse(phNumber);
+
+
+                Console.Write("Enter Email Id: ");
+                string mailId = Console.ReadLine();
+                if (!Regex.IsMatch(mailId, mailPattern))
+                    throw new Exception("Check Mail address");
+                else
+                    contact.email = mailId;
+
+
+                contacts.Add(contact);
+                Console.WriteLine("New Contact Details added successfully");
+            }
         }
 
 
         public void editContact()
         {
-            Console.WriteLine("Enter the first name of the person you want to edit information of: ");
-            String editName = Console.ReadLine();
+            Console.WriteLine("Enter the name of the person you want to edit information of: ");
+            String [] editName = Console.ReadLine().Split();
 
             foreach (ContactDetails i in contacts)
             {
-                if (i.firstName.Equals(editName))
+                if (i.firstName.Equals(editName[0]) && i.lastName.Equals(editName[1]))
                 {
                     int choiceofedit = 0;
                     while (choiceofedit != 9)
@@ -212,14 +224,18 @@ namespace AddressBook
 
         public void deleteContact()
         {
-            Console.WriteLine("Enter the first name of the person to delete the contact: ");
-            string deleteName = Console.ReadLine();
+            Console.WriteLine("Enter the name of the person to delete the contact: ");
+            string [] deleteName = Console.ReadLine().Split();
             List<ContactDetails> contacts1 = new List<ContactDetails>();
             foreach (ContactDetails i in contacts)
             {
-                if (i.firstName.Equals(deleteName))
+                if (i.firstName.Equals(deleteName[0]) && i.lastName.Equals(deleteName[1]))
                 {
                     contacts1.Add(i);
+                }
+                else
+                {
+                    Console.WriteLine("Please Enter a valid name.");
                 }
             }
             contacts.RemoveAll(i => contacts1.Contains(i));

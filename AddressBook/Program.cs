@@ -16,18 +16,31 @@ namespace AddressBook
 
             string name = "";
             int choice = 0;
-            //string[] details;
-
+            
 
             MultipleAddressBooks multipleAddressBooks = new MultipleAddressBooks();
             Address_Book addressBook = null;
-
-            Console.WriteLine("Welcome to Address Book Program");
             while (true)
             {
-                //bool flag = true;
-                Console.WriteLine("1.Add Address Book\n2.Open Address Book");
-                choice = Convert.ToInt32(Console.ReadLine());
+                int option = 0;
+                while (choice == 0)
+                {
+                    Console.WriteLine("Choose any one.");
+                    Console.WriteLine("1.Add Address Book\n2.Open Address Book");
+                    try
+                    {
+                        choice = Convert.ToInt32(Console.ReadLine());
+                        if(choice!=1 || choice!=2)
+                        {
+                            Console.WriteLine("Invalid choice");
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Enter a valid Input");
+                        choice = 0;
+                    }
+                }
                 Console.WriteLine("Enter name of Address Book");
                 name = Console.ReadLine();
                 if (choice == 1)
@@ -41,14 +54,11 @@ namespace AddressBook
                     if (addressBook == null)
                     {
                         Console.WriteLine("No such Address Book");
+                        option = 5;
                     }
                 }
-                else
-                {
-                    Console.WriteLine("Invalid choice");
-                }
+                choice = 0;
 
-                int option = 0;
                 while (option != 5)
                 {
                     Console.WriteLine("\n1. Display all contacts\n2. Add new contact\n3. Edit a contact\n4. Delete a contact\n5. Exit");
@@ -82,6 +92,7 @@ namespace AddressBook
                     }
                 }
             }
+
         }
     }
 }
