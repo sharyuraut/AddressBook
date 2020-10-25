@@ -74,6 +74,7 @@ namespace AddressBook
                             Console.WriteLine("State :" + contactByState.Key + "   Count :" + contactByState.Value.Count);
 
                         }
+
                         break;
 
                     case 7:

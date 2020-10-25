@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Dynamic;
 using System.Text;
 
 namespace AddressBook
@@ -57,25 +58,30 @@ namespace AddressBook
         }
         public bool CheckName(string firstName, string lastName)
         {
-            foreach (ContactDetails c in contactList)
+
+            foreach (ContactDetails contact in contactList.FindAll(e => e.firstName.Equals(firstName) && e.lastName.Equals(lastName)))
             {
-                if (c.firstName.Equals(firstName) && c.lastName.Equals(lastName))
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
         public List<ContactDetails> GetPersonByCityOrState(string cityOrState)
         {
             List<ContactDetails> contact = new List<ContactDetails>();
-            foreach (ContactDetails c in contactList)
+            foreach (ContactDetails c in contactList.FindAll(e => e.city.Equals(cityOrState) || e.state.Equals(cityOrState)))
             {
-                if (c.city.Equals(cityOrState) || c.state.Equals(cityOrState))
-                    contact.Add(c);
-
+                contact.Add(c);
             }
             return contact;
+        }
+        public void SortByName()
+        {
+            contactList.Sort((contact1, contact2) => contact1.firstName.CompareTo(contact2.firstName));
+            foreach (ContactDetails c in contactList)
+            {
+                Console.WriteLine(c.ToString());
+            }
+
         }
     }
 }
