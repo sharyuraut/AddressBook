@@ -19,7 +19,7 @@ namespace AddressBook
             while (true)
             {
 
-                Console.WriteLine("1.Add Address Book\n2.Edit Or Add Contact in Address Book\n3.View Persons By City\n4.View Persons By State\n5.Exit");
+                Console.WriteLine("1.Add Address Book\n2.Edit Or Add Contact in Address Book\n3.View Persons By City\n4.View Persons By State\n5.Count By City\n6.Count By State\n7.Exit");
                 choice = Convert.ToInt32(Console.ReadLine());
 
                 switch (choice)
@@ -60,6 +60,23 @@ namespace AddressBook
                         multipleAddressBooks.ViewPersonsByState(state);
                         break;
                     case 5:
+                        multipleAddressBooks.SetContactByCityDictionary();
+                        foreach (var contactByCity in multipleAddressBooks.ContactByCity)
+                        {
+                            Console.WriteLine("City :" + contactByCity.Key + "   Count :" + contactByCity.Value.Count);
+
+                        }
+                        break;
+                    case 6:
+                        multipleAddressBooks.SetContactByStateDictionary();
+                        foreach (var contactByState in multipleAddressBooks.ContactByState)
+                        {
+                            Console.WriteLine("State :" + contactByState.Key + "   Count :" + contactByState.Value.Count);
+
+                        }
+                        break;
+
+                    case 7:
                         Environment.Exit(0);
                         break;
 
@@ -67,6 +84,7 @@ namespace AddressBook
                         Console.WriteLine("Invalid Choice");
                         break;
                 }
+
             }
         }
     }

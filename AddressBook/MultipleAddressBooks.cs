@@ -7,15 +7,15 @@ namespace AddressBook
     class MultipleAddressBooks
     {
         Dictionary<string, Address_Book> addressBooksCollection = new Dictionary<string, Address_Book>();
-        public Dictionary<string, List<Contacts>> ContactByCity;
-        public Dictionary<string, List<Contacts>> ContactByState;
+        public Dictionary<string, List<ContactDetails>> ContactByCity;
+        public Dictionary<string, List<ContactDetails>> ContactByState;
         List<string> cities;
         List<string> states;
         public MultipleAddressBooks()
         {
             addressBooksCollection = new Dictionary<string, Address_Book>();
-            ContactByCity = new Dictionary<string, List<Contacts>>();
-            ContactByState = new Dictionary<string, List<Contacts>>();
+            ContactByCity = new Dictionary<string, List<ContactDetails>>();
+            ContactByState = new Dictionary<string, List<ContactDetails>>();
             cities = new List<string>();
             states = new List<string>();
 
@@ -66,18 +66,18 @@ namespace AddressBook
 
             foreach (string city in cities)
             {
-                List<Contacts> contacts = new List<Contacts>();
+                List<ContactDetails> ContactDetails = new List<ContactDetails>();
                 foreach (var addressBook in addressBooksCollection)
                 {
-                    contacts.AddRange(addressBook.Value.GetPersonByCityOrState(city));
+                    ContactDetails.AddRange(addressBook.Value.GetPersonByCityOrState(city));
                 }
                 if (ContactByCity.ContainsKey(city))
                 {
-                    ContactByCity[city] = contacts;
+                    ContactByCity[city] = ContactDetails;
                 }
                 else
                 {
-                    ContactByCity.Add(city, contacts);
+                    ContactByCity.Add(city, ContactDetails);
                 }
             }
 
@@ -88,18 +88,18 @@ namespace AddressBook
 
             foreach (string state in states)
             {
-                List<Contacts> contacts = new List<Contacts>();
+                List<ContactDetails> ContactDetails = new List<ContactDetails>();
                 foreach (var addressBook in addressBooksCollection)
                 {
-                    contacts.AddRange(addressBook.Value.GetPersonByCityOrState(state));
+                    ContactDetails.AddRange(addressBook.Value.GetPersonByCityOrState(state));
                 }
                 if (ContactByState.ContainsKey(state))
                 {
-                    ContactByState[state] = contacts;
+                    ContactByState[state] = ContactDetails;
                 }
                 else
                 {
-                    ContactByState.Add(state, contacts);
+                    ContactByState.Add(state, ContactDetails);
                 }
             }
 
@@ -108,9 +108,9 @@ namespace AddressBook
         {
             if (ContactByCity.ContainsKey(city))
             {
-                foreach (Contacts contact in ContactByCity[city])
+                foreach (ContactDetails contact in ContactByCity[city])
                 {
-                    contact.ToString();
+                    Console.WriteLine("Name :" + contact.firstName + " " + contact.lastName + "\nAddress :" + contact.address + "   ZipCode :" + contact.zipCode + "\nPhone No :" + contact.phoneNo + "   Email :" + contact.eMail);
                 }
             }
             else
@@ -122,9 +122,9 @@ namespace AddressBook
         {
             if (ContactByState.ContainsKey(state))
             {
-                foreach (Contacts contact in ContactByState[state])
+                foreach (ContactDetails contact in ContactByState[state])
                 {
-                    contact.ToString();
+                    Console.WriteLine("Name :" + contact.firstName + " " + contact.lastName + "\nAddress :" + contact.address + "   ZipCode :" + contact.zipCode + "\nPhone No :" + contact.phoneNo + "   Email :" + contact.eMail);
                 }
             }
             else
