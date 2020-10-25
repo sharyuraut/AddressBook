@@ -8,7 +8,7 @@ namespace AddressBook
     class Address_Book
     {
         public List<ContactDetails> contactList;
-        string path = @"C:\Users\Gharat\source\repos\AddressBook\Address Book ContactDetails.txt";
+
 
         public Address_Book()
         {
@@ -57,89 +57,25 @@ namespace AddressBook
         }
         public bool CheckName(string firstName, string lastName)
         {
-
-            foreach (ContactDetails contact in contactList.FindAll(e => e.firstName.Equals(firstName) && e.lastName.Equals(lastName)))
+            foreach (ContactDetails c in contactList)
             {
-                return true;
+                if (c.firstName.Equals(firstName) && c.lastName.Equals(lastName))
+                {
+                    return true;
+                }
             }
             return false;
         }
         public List<ContactDetails> GetPersonByCityOrState(string cityOrState)
         {
             List<ContactDetails> contact = new List<ContactDetails>();
-            foreach (ContactDetails c in contactList.FindAll(e => e.city.Equals(cityOrState) || e.state.Equals(cityOrState)))
+            foreach (ContactDetails c in contactList)
             {
-                contact.Add(c);
+                if (c.city.Equals(cityOrState) || c.state.Equals(cityOrState))
+                    contact.Add(c);
+
             }
             return contact;
-        }
-        public void SortByName()
-        {
-            contactList.Sort((contact1, contact2) => contact1.firstName.CompareTo(contact2.firstName));
-            foreach (ContactDetails c in contactList)
-            {
-                Console.WriteLine(c.ToString());
-            }
-
-        }
-        public void SortByCity()
-        {
-            contactList.Sort((contact1, contact2) => contact1.city.CompareTo(contact2.city));
-            foreach (ContactDetails c in contactList)
-            {
-                Console.WriteLine(c.ToString());
-            }
-
-        }
-        public void SortByState()
-        {
-            contactList.Sort((contact1, contact2) => contact1.state.CompareTo(contact2.state));
-            foreach (ContactDetails c in contactList)
-            {
-                Console.WriteLine(c.ToString());
-            }
-
-        }
-        public void SortByZipCode()
-        {
-            contactList.Sort((contact1, contact2) => contact1.zipCode.CompareTo(contact2.zipCode));
-            foreach (ContactDetails c in contactList)
-            {
-                Console.WriteLine(c.ToString());
-            }
-
-        }
-        public void WriteToFile()
-        {
-            if (FileExitsts())
-            {
-                int count = 0;
-                using (StreamWriter sr = File.AppendText(path))
-                {
-
-                    foreach (ContactDetails c in contactList)
-                    {
-                        sr.WriteLine(++count + " " + c.ToString() + "\n");
-
-                    }
-                    sr.Close();
-                }
-            }
-            else
-            {
-                Console.WriteLine("File Does Not Exist");
-            }
-
-        }
-        public void ClearFile()
-        {
-            File.WriteAllText(path, string.Empty);
-        }
-        public bool FileExitsts()
-        {
-            if (File.Exists(path))
-                return true;
-            return false;
         }
     }
 }
