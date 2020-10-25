@@ -8,91 +8,86 @@ namespace AddressBook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Address Book Program!");
-
-            //created list for contact details 
-            List<ContactDetails> contactDetails = new List<ContactDetails>();
-            ContactDetails contact = new ContactDetails();
-
-            string name = "";
-            int choice = 0;
-            
+            int choice;
+            string addBookName = "";
 
             MultipleAddressBooks multipleAddressBooks = new MultipleAddressBooks();
+            OperationOnAddressBook operation = new OperationOnAddressBook();
             Address_Book addressBook = null;
+
+            Console.WriteLine("Welcome to Address Book Program");
             while (true)
             {
-                int option = 0;
-                while (choice == 0)
+                Console.WriteLine("------------------------------------------------------------------------");
+                Console.WriteLine("1.Add Address Book\n2.Edit Or Add Contact in Address Book\n3.View Persons By City\n4.View Persons By State\n5.Count By City\n6.Count By State\n7.Exit");
+                Console.WriteLine("------------------------------------------------------------------------");
+                choice = Convert.ToInt32(Console.ReadLine());
+
+                switch (choice)
                 {
-                    Console.WriteLine("Choose any one.");
-                    Console.WriteLine("1.Add Address Book\n2.Open Address Book");
-                    try
-                    {
-                        choice = Convert.ToInt32(Console.ReadLine());
-                        if(choice!=1 || choice!=2)
+                    case 1:
+                        Console.WriteLine("Enter name of Address Book");
+                        addBookName = Console.ReadLine();
+                        multipleAddressBooks.AddAddressBook(addBookName);
+
+                        break;
+                    case 2:
+                        Console.WriteLine("Enter name of Address Book");
+                        addBookName = Console.ReadLine();
+                        addressBook = multipleAddressBooks.GetAddressBook(addBookName);
+
+                        if (addressBook != null)
                         {
-                            Console.WriteLine("Invalid choice");
+                            operation.EditAddOrDeleteContact(addressBook);
+
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Enter a valid Input");
-                        choice = 0;
-                    }
+                        else
+                        {
+                            Console.WriteLine("No such Adress Book");
+                        }
+                        break;
+                    case 3:
+                        Console.WriteLine("Enter City");
+                        string city = Console.ReadLine();
+                        multipleAddressBooks.SetContactByCityDictionary();
+
+                        multipleAddressBooks.ViewPersonsByCity(city);
+                        break;
+                    case 4:
+                        Console.WriteLine("Enter State");
+                        string state = Console.ReadLine();
+
+                        multipleAddressBooks.SetContactByStateDictionary();
+                        multipleAddressBooks.ViewPersonsByState(state);
+                        break;
+                    case 5:
+                        multipleAddressBooks.SetContactByCityDictionary();
+                        foreach (var contactByCity in multipleAddressBooks.ContactByCity)
+                        {
+                            Console.WriteLine("City :" + contactByCity.Key + "   Count :" + contactByCity.Value.Count);
+
+                        }
+                        break;
+                    case 6:
+                        multipleAddressBooks.SetContactByStateDictionary();
+                        foreach (var contactByState in multipleAddressBooks.ContactByState)
+                        {
+                            Console.WriteLine("State :" + contactByState.Key + "   Count :" + contactByState.Value.Count);
+
+                        }
+
+                        break;
+
+                    case 7:
+                        Environment.Exit(0);
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid Choice");
+                        break;
                 }
-                Console.WriteLine("Enter name of Address Book");
-                name = Console.ReadLine();
-                if (choice == 1)
-                {
-                    multipleAddressBooks.AddAddressBook(name);
-                    addressBook = multipleAddressBooks.GetAddressBook(name);
-                }
-                else if (choice == 2)
-                {
-                    addressBook = multipleAddressBooks.GetAddressBook(name);
-                    if (addressBook == null)
-                    {
-                        Console.WriteLine("No such Address Book");
-                        option = 5;
-                    }
-                }
-                choice = 0;
 
-                while (option != 5)
-                {
-                    Console.WriteLine("\n1. Display all contacts\n2. Add new contact\n3. Edit a contact\n4. Delete a contact\n5. Exit");
-                    option = int.Parse(Console.ReadLine());
-                    switch (option)
-                    {
-                        case 1:
-                            Console.WriteLine("Displaying Contacts");
-                            contact.display();
-                            break;
-
-                        case 2:
-                            Console.WriteLine("Add New Contact.");
-                            contact.addNewContact();
-                            break;
-
-                        case 3:
-                            contact.editContact();
-                            break;
-
-                        case 4:
-                            contact.deleteContact();
-                            break;
-
-                        case 5:
-                            break;
-
-                        default:
-                            Console.WriteLine("Enter valid option.");
-                            break;
-                    }
-                }
             }
-
         }
     }
 }
