@@ -38,7 +38,7 @@ namespace AddressBook
 
                         if (addressBook != null)
                         {
-                            operation.EditAddOrDeleteContact(addressBook);
+                            operation.EditAddOrDeleteContact(addressBook, addBookName);
 
                         }
                         else
@@ -88,8 +88,6 @@ namespace AddressBook
                 }
 
             }
-
-
         }
     }
 }
